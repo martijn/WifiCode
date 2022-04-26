@@ -10,14 +10,14 @@
                 
                 <label class="block">
                     <span>SSID</span>
-                    <InputText type="text" class="block mt-1 w-full" @bind-Value="_wifiDetails.Ssid"/>
+                    <InputText type="text" class="block mt-1 w-full" @bind-Value="WifiDetails.Ssid"/>
                 </label>
 
                 <label class="block">
                     <span>Password</span>
-                    <InputText type="text" class="block mt-1 w-full" @bind-Value="_wifiDetails.Password"/>
+                    <InputText type="text" class="block mt-1 w-full" @bind-Value="WifiDetails.Password"/>
                     <div class="text-sm text-red-500">
-                        <ValidationMessage For="() => _wifiDetails.Password"/>
+                        <ValidationMessage For="() => WifiDetails.Password"/>
                     </div>
                 </label>
                 
@@ -30,17 +30,24 @@
 
                 <label class="block">
                     <span>Sheet title</span>
-                    <InputText type="text" class="block mt-1 w-full" @bind-Value="_wifiDetails.Title"/>
+                    <InputText type="text" class="block mt-1 w-full" @bind-Value="WifiDetails.Title"/>
                 </label>
 
                 <label class="block">
                     <span>Additional information</span>
-                    <InputText type="text" class="block mt-1 w-full" @bind-Value="_wifiDetails.Footer"/>
+                    <InputText type="text" class="block mt-1 w-full" @bind-Value="WifiDetails.Footer"/>
                 </label>
                 
                 
-                <div class="text-center">
-                    <button onclick="window.print()" class="px-4 py-1 text-blue-600 font-bold rounded-full border border-blue-200 hover:text-white hover:bg-blue-600 hover:border-transparent">Print</button>
+                <div class="text-center mb-4">
+                    @if (_formValid)
+                    {
+                        <button onclick="window.print()" class="px-4 py-1 text-blue-600 font-bold rounded-full border border-blue-200 hover:text-white hover:bg-blue-600 hover:border-transparent">Print</button>
+                    }
+                    else
+                    {
+                        <button class="px-4 py-1 text-gray-600 font-bold rounded-full border border-gray-200">Print</button>
+                    }
                 </div>
             </div>
         </EditForm>
@@ -48,27 +55,29 @@
     <div>
         @if (_formValid)
         {
-            <CascadingValue Value="@_wifiDetails">
                 <Sheet />
-            </CascadingValue>
         }
         else
         {
-            <div class="text-center mt-12">
-                Complete the form and a preview of your QR code will appear here.
+            <div class="flex justify-center items-center border shadow text-gray-600 print:border-0 print:shadow-none px-4 py-6 h-96">
+                <span>
+                    Complete the form and a preview of your QR code will appear here.
+                </span>
             </div>
         }
     </div>
 </div>
 
 @code {
-    private readonly WifiDetails _wifiDetails = new();
+    [CascadingParameter]
+    private WifiDetails WifiDetails { get; set; } = new();
+    
     private EditContext? _editContext;
     private bool _formValid;
 
     protected override void OnInitialized()
     {
-        _editContext = new(_wifiDetails);
+        _editContext = new(WifiDetails);
         _editContext.OnFieldChanged += HandleFieldChanged;
     }
 

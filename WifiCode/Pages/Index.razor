@@ -11,4 +11,10 @@
     </p>
 </div>
 
-<Editor />
+<CascadingValue Value="@WifiDetails">
+    <Editor/>
+</CascadingValue>
+
+@code {
+    private readonly WifiDetails WifiDetails = new();
+}
