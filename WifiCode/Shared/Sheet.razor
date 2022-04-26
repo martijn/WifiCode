@@ -1,0 +1,23 @@
+<div class="text-center">
+    <h1 class="text-2xl font-bold mb-4">Guest Wi-Fi login</h1>
+
+    <p class="mb-4">Scan the code below with your Apple or Android camera:</p>
+
+    <div class="m-4">
+        <WifiQrCode WifiDetails="@WifiDetails" />
+    </div>
+
+    <p class="leading-loose mb-4">
+        Or choose network<br/>
+        <strong class="font-mono">@WifiDetails.Ssid</strong><br/>
+        and enter password<br />
+        <strong class="font-mono">@WifiDetails.Password</strong>
+    </p>
+    
+    <p class="text-xs text-gray-400">wificode.storck.io</p>
+</div>
+
+@code {
+    [Parameter]
+    public WifiDetails WifiDetails { get; set; } = new();
+}

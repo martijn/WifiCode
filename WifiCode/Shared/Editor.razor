@@ -1,0 +1,62 @@
+@using QRCoder
+@implements IDisposable
+
+<div class="grid grid-cols-2 gap-6 my-4">
+    <div>
+        <EditForm EditContext="@_editContext">
+            <DataAnnotationsValidator />
+            
+            <div class="grid grid-cols-1 gap-6">
+                <label class="block">
+                    <span>SSID</span>
+                    <InputText type="text" class="block mt-1 w-full" @bind-Value="_wifiDetails.Ssid" />
+                </label>
+
+                <label class="block">
+                    <span>Password</span>
+                    <InputText type="text" class="block mt-1 w-full" @bind-Value="_wifiDetails.Password" />
+                </label>
+            </div>
+        </EditForm>
+    </div>
+    <div>
+        @if (formValid)
+        {
+            <Sheet WifiDetails="@_wifiDetails" @ref="_sheet"/>
+        }
+        else
+        {
+            <div class="text-center">Complete the form on the left to generate a sheet</div>
+        }
+    </div>
+</div>
+
+@code {
+    private WifiDetails _wifiDetails = new();
+    private Sheet? _sheet;
+    private EditContext? _editContext;
+    private bool formValid = false;
+
+    protected override void OnInitialized()
+    {
+        _editContext = new(_wifiDetails);
+        _editContext.OnFieldChanged += HandleFieldChanged;
+    }
+
+    private void HandleFieldChanged(object? sender, FieldChangedEventArgs e)
+    {
+        if (_editContext is not null)
+        {
+            formValid = _editContext.Validate();
+            StateHasChanged();
+        }
+    }
+
+    public void Dispose()
+    {
+        if (_editContext is not null)
+        {
+            _editContext.OnFieldChanged -= HandleFieldChanged;
+        }
+    }
+}

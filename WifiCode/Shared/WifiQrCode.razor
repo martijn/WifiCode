@@ -1,0 +1,27 @@
+@using QRCoder
+
+@if (_qrCode is not null)
+{
+    <img alt="QR Code to access wireless network '@WifiDetails.Ssid'" src="data:image/png;base64,@_qrCode" />
+}
+
+@code {
+    [Parameter]
+    public WifiDetails WifiDetails { get; set; } = new();
+    
+    private QRCodeGenerator _qrGenerator = new();
+    private string? _qrCode;
+
+    protected override void OnParametersSet()
+    {
+        var generator = new PayloadGenerator.WiFi(WifiDetails.Ssid, WifiDetails.Password, PayloadGenerator.WiFi.Authentication.WPA);
+        string payload = generator.ToString();
+        
+        var qrCodeData = _qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.M);
+        var qrCode = new PngByteQRCode(qrCodeData);
+        _qrCode = Convert.ToBase64String(qrCode.GetGraphic(20));
+        
+        base.OnParametersSet();
+    }
+
+}
