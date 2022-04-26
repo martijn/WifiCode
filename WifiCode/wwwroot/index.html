@@ -2,41 +2,44 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>WifiCode</title>
-    <base href="/" />
-    <link href="app.min.css" rel="stylesheet" />
-    <link href="WifiCode.styles.css" rel="stylesheet" />
+    <base href="/"/>
+    <link href="app.min.css" rel="stylesheet"/>
+    <!-- <link href="WifiCode.styles.css" rel="stylesheet"/> -->
 </head>
 
 <body>
-    <div id="app">
-        <div class="container mx-auto">
-            <h1 class="text-2xl font-bold my-8 text-center">WifiCode</h1>
-            
-            <p class="text-center my-4 mx-auto max-w-lg">
-                Use this tool to generate a friendly info sheet for your guest network, including a QR code that
-                can be scanned using and iPhone, iPad or recent Android device.
-            </p>
+<div id="app">
+    <div class="container mx-auto">
+        <h1 class="my-8 text-center">
+            <img src="/wificode.svg" alt="WifiCode by storck.io" class="inline w-80"/>
+        </h1>
 
-            <p class="text-center my-4 mx-auto max-w-lg animate-pulse">
-                Loading...
-            </p>
-            
-            <div class="print:hidden text-center text-sm mt-8">
-                © <a href="https://storck.io/">storck.io - value through software</a><br />
-                <a href="https://github.com/martijn/WifiCode" class="text-blue-500">source code on Github</a>
-            </div>
+        <p class="text-center my-4 mx-auto max-w-xl">
+            Allow visitors access to your guest Wi-Fi network by scanning a QR code using their iPhone,
+            iPad or recent Android device. Simply fill out the form below and click 'Print' for your free
+            guest network information sheet!
+        </p>
+
+        <p class="text-center my-4 mx-auto max-w-lg animate-pulse">
+            Loading...
+        </p>
+
+        <div class="print:hidden text-center text-sm mt-8">
+            © <a href="https://storck.io/">storck.io - value through software</a><br/>
+            <a href="https://github.com/martijn/WifiCode" class="text-blue-500">source code on Github</a>
         </div>
     </div>
+</div>
 
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
-    <script src="_framework/blazor.webassembly.js"></script>
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+<script src="_framework/blazor.webassembly.js"></script>
 </body>
 
 </html>
