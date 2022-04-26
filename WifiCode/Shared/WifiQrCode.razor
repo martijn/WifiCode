@@ -2,7 +2,7 @@
 
 @if (_qrCode is not null)
 {
-    <img alt="QR Code to access wireless network '@WifiDetails.Ssid'" src="data:image/png;base64,@_qrCode" />
+    <img alt="QR Code to access wireless network '@WifiDetails.Ssid'" src="data:image/png;base64,@_qrCode" class="max-w-md mx-auto" />
 }
 
 @code {

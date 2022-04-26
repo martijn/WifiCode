@@ -1,7 +1,7 @@
 @implements IDisposable
 
-<div class="grid grid-cols-2 gap-6 my-4">
-    <div>
+<div class="md:grid grid-cols-2 print:grid-cols-1 gap-6 my-4">
+    <div class="print:hidden">
         <EditForm EditContext="@_editContext">
             <DataAnnotationsValidator />
             
@@ -21,6 +21,11 @@
                     </div>
                 </label>
                 
+                <div class="text-xs text-gray-500">
+                    The QR code is generated locally in your browser; Wi-Fi credentials are not
+                    transmitted over the network or stored on a server.
+                </div>
+                
                 <h2 class="text-lg font-bold">Information sheet markup</h2>
 
                 <label class="block">
@@ -33,9 +38,9 @@
                     <InputText type="text" class="block mt-1 w-full" @bind-Value="_wifiDetails.Footer"/>
                 </label>
                 
-                <div class="text-sm">
-                    The QR code is generated locally in your browser; Wi-Fi credentials are not
-                    transmitted over the network or stored on a server.
+                
+                <div class="text-center">
+                    <button onclick="window.print()" class="px-4 py-1 text-blue-600 font-bold rounded-full border border-blue-200 hover:text-white hover:bg-blue-600 hover:border-transparent">Print</button>
                 </div>
             </div>
         </EditForm>
@@ -50,7 +55,7 @@
         else
         {
             <div class="text-center mt-12">
-                Complete the form on the left and a preview of your QR code will appear here.
+                Complete the form and a preview of your QR code will appear here.
             </div>
         }
     </div>
