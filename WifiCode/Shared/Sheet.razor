@@ -1,23 +1,27 @@
 <div class="text-center">
-    <h1 class="text-2xl font-bold mb-4">Guest Wi-Fi login</h1>
+    <h1 class="text-2xl font-bold mb-4">@WifiDetails.Title</h1>
 
-    <p class="mb-4">Scan the code below with your Apple or Android camera:</p>
+    <p class="mb-4">Scan the code below with your Apple or Android camera to connect:</p>
 
     <div class="m-4">
-        <WifiQrCode WifiDetails="@WifiDetails" />
+        <WifiQrCode />
     </div>
 
     <p class="leading-loose mb-4">
-        Or choose network<br/>
+        Or, choose network<br/>
         <strong class="font-mono">@WifiDetails.Ssid</strong><br/>
         and enter password<br />
         <strong class="font-mono">@WifiDetails.Password</strong>
     </p>
     
-    <p class="text-xs text-gray-400">wificode.storck.io</p>
+    @if (!String.IsNullOrEmpty(WifiDetails.Footer))
+    {
+        <div class="mb-4">@WifiDetails.Footer</div>
+    }
+    <p class="text-xs text-gray-400 mt-8">wificode.storck.io</p>
 </div>
 
 @code {
-    [Parameter]
+    [CascadingParameter]
     public WifiDetails WifiDetails { get; set; } = new();
 }

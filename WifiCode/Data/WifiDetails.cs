@@ -4,13 +4,14 @@ namespace WifiCode.Data;
 
 public class WifiDetails
 {
-    [Required, MinLength(1)]
+    [Required]
     public string? Ssid { get; set; }
     
-    [Required, MinLength(1)]
+    [Required]
+    [MinLength(8, ErrorMessage = "Password must be at least 8 characters")]
     public string? Password { get; set; }
-    
-    public string? Title { get; set; }
-    
-    public string? Footer { get; set; }
+
+    public string Title { get; set; } = "Guest Wi-Fi details";
+
+    public string Footer { get; set; } = "";
 }

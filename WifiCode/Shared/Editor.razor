@@ -1,4 +1,3 @@
-@using QRCoder
 @implements IDisposable
 
 <div class="grid grid-cols-2 gap-6 my-4">
@@ -7,35 +6,60 @@
             <DataAnnotationsValidator />
             
             <div class="grid grid-cols-1 gap-6">
+                <h2 class="text-lg font-bold">Network details</h2>
+                
                 <label class="block">
                     <span>SSID</span>
-                    <InputText type="text" class="block mt-1 w-full" @bind-Value="_wifiDetails.Ssid" />
+                    <InputText type="text" class="block mt-1 w-full" @bind-Value="_wifiDetails.Ssid"/>
                 </label>
 
                 <label class="block">
                     <span>Password</span>
-                    <InputText type="text" class="block mt-1 w-full" @bind-Value="_wifiDetails.Password" />
+                    <InputText type="text" class="block mt-1 w-full" @bind-Value="_wifiDetails.Password"/>
+                    <div class="text-sm text-red-500">
+                        <ValidationMessage For="() => _wifiDetails.Password"/>
+                    </div>
                 </label>
+                
+                <h2 class="text-lg font-bold">Information sheet markup</h2>
+
+                <label class="block">
+                    <span>Sheet title</span>
+                    <InputText type="text" class="block mt-1 w-full" @bind-Value="_wifiDetails.Title"/>
+                </label>
+
+                <label class="block">
+                    <span>Additional information</span>
+                    <InputText type="text" class="block mt-1 w-full" @bind-Value="_wifiDetails.Footer"/>
+                </label>
+                
+                <div class="text-sm">
+                    The QR code is generated locally in your browser; Wi-Fi credentials are not
+                    transmitted over the network or stored on a server.
+                </div>
             </div>
         </EditForm>
     </div>
     <div>
-        @if (formValid)
+        @if (_formValid)
         {
-            <Sheet WifiDetails="@_wifiDetails" @ref="_sheet"/>
+            <CascadingValue Value="@_wifiDetails">
+                <Sheet />
+            </CascadingValue>
         }
         else
         {
-            <div class="text-center">Complete the form on the left to generate a sheet</div>
+            <div class="text-center mt-12">
+                Complete the form on the left and a preview of your QR code will appear here.
+            </div>
         }
     </div>
 </div>
 
 @code {
-    private WifiDetails _wifiDetails = new();
-    private Sheet? _sheet;
+    private readonly WifiDetails _wifiDetails = new();
     private EditContext? _editContext;
-    private bool formValid = false;
+    private bool _formValid;
 
     protected override void OnInitialized()
     {
@@ -47,7 +71,7 @@
     {
         if (_editContext is not null)
         {
-            formValid = _editContext.Validate();
+            _formValid = _editContext.Validate();
             StateHasChanged();
         }
     }
