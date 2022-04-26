@@ -55,7 +55,9 @@
     <div>
         @if (_formValid)
         {
+            <CascadingValue Value="@WifiDetails">
                 <Sheet />
+            </CascadingValue>
         }
         else
         {
@@ -69,8 +71,7 @@
 </div>
 
 @code {
-    [CascadingParameter]
-    private WifiDetails WifiDetails { get; set; } = new();
+    private readonly WifiDetails WifiDetails = new();
     
     private EditContext? _editContext;
     private bool _formValid;
@@ -86,8 +87,8 @@
         if (_editContext is not null)
         {
             _formValid = _editContext.Validate();
-            StateHasChanged();
         }
+        StateHasChanged();
     }
 
     public void Dispose()
